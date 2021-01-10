@@ -12,8 +12,11 @@
 namespace Tiborsulyan\Autologout;
 
 use Flarum\Foundation\ValidationException;
+use Flarum\Locale\Translator;
 use Flarum\Settings\Event\Saving;
 use Flarum\Extend;
+use Flarum\Settings\SettingsRepositoryInterface;
+use Illuminate\Config\Repository as ConfigRepository;
 
 return [
     (new Extend\Frontend('forum'))
@@ -22,23 +25,43 @@ return [
     (new Extend\Frontend('admin'))
         ->js(__DIR__ . '/js/dist/admin.js'),
 
+    new Extend\Locales(__DIR__ . '/resources/locale'),
+
     (new Extend\Settings)
-        ->serializeToForum('tiborsulyan-autologout.timeoutAfter', 'tiborsulyan-autologout.timeoutAfter')
+        ->serializeToForum('tiborsulyan-autologout.logoutAfter', 'tiborsulyan-autologout.logoutAfter')
         ->serializeToForum('tiborsulyan-autologout.warnAfter', 'tiborsulyan-autologout.warnAfter'),
 
     (new Extend\Routes('api'))
         ->post('/keepalive', 'tiborsulyan.autologout.keepalive', KeepaliveController::class),
 
-/*
-array (
- 'tiborsulyan-autologout.timeoutAfter' => '5',
- 'tiborsulyan-autologout.warnAfter' => '2',
-)
- */
-//    (new Extend\Event())
-//        ->listen(Saving::class, function (Saving $event) {
-//            throw new ValidationException([
-//                var_export($event->settings, true)
-//            ]);
-//        }),
+    (new Extend\Event())
+        ->listen(Saving::class, function (Saving $event) {
+
+            if (!isset($event->settings['tiborsulyan-autologout.logoutAfter'])) {
+                throw new ValidationException([
+                    'autologout' => app('translator')->trans('tiborsulyan-autologout.admin.validation.logoutTimeoutNotSet')
+                ]);
+            }
+            $logoutAfter = $event->settings['tiborsulyan-autologout.logoutAfter'];
+
+            if (!isset($event->settings['tiborsulyan-autologout.warnAfter'])) {
+                throw new ValidationException([
+                    'autologout' => app('translator')->trans('tiborsulyan-autologout.admin.validation.warnTimeoutNotSet')
+                ]);
+            }
+            $warnAfter = isset($event->settings['tiborsulyan-autologout.warnAfter']);
+
+            $sessionLifetime = app(ConfigRepository::class)->get("session.lifetime");
+            if ($logoutAfter > $sessionLifetime) {
+                throw new ValidationException([
+                    'autologout' => app('translator')->trans('tiborsulyan-autologout.admin.validation.logoutTimeoutTooBig', ['sessionLifetime' => $sessionLifetime])
+                ]);
+            }
+
+            if ($logoutAfter <= $warnAfter) {
+                throw new ValidationException([
+                    'autologout' => app('translator')->trans('tiborsulyan-autologout.admin.validation.warnTimeoutTooBig')
+                ]);
+            }
+        }),
 ];

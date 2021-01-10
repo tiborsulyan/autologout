@@ -42,7 +42,7 @@ export default class ExpirationWarningModal extends Modal {
     }
 
     title() {
-        return "Figyelmeztetés";
+        return app.translator.trans('tiborsulyan-autologout.forum.warning-modal.title');
     }
 
     content() {
@@ -50,8 +50,8 @@ export default class ExpirationWarningModal extends Modal {
             <div className="Modal-body">
                 <div className="Form Form--centered">
                     <div className="Modal-header">
-                        <h3>Mindjárt lejár a munkamenet, mi legyen?</h3>
-                        <p>Hátralévő idő: {this.remainingTimeString}</p>
+                        <h3>{app.translator.trans('tiborsulyan-autologout.forum.warning-modal.message')}</h3>
+                        <p>{app.translator.trans('tiborsulyan-autologout.forum.warning-modal.remaining')} {this.remainingTimeString}</p>
                     </div>
                     <div className="Form-group">
                         {Button.component({
@@ -59,13 +59,13 @@ export default class ExpirationWarningModal extends Modal {
                             type: 'submit',
                             loading: this.loading,
                             onclick: this.stay.bind(this)
-                        }, "Bent maradok")},
+                        }, app.translator.trans('tiborsulyan-autologout.forum.warning-modal.stay'))},
                         {Button.component({
                             className: 'Button Button--primary Button--block',
                             type: 'submit',
                             loading: this.loading,
                             onclick: this.leave.bind(this)
-                        }, "Kilépek")}
+                        }, app.translator.trans('tiborsulyan-autologout.forum.warning-modal.leave'))}
                     </div>
                 </div>
             </div>

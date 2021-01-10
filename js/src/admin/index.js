@@ -5,9 +5,9 @@ app.initializers.add('tiborsulyan/autologout', () => {
   app.extensionData
     .for('tiborsulyan-autologout')
     .registerSetting({
-      setting: 'tiborsulyan-autologout.timeoutAfter',
+      setting: 'tiborsulyan-autologout.logoutAfter',
       type: 'number',
-      label: app.translator.trans('tiborsulyan-autologout.admin.settings.timeoutAfter')
+      label: app.translator.trans('tiborsulyan-autologout.admin.settings.logoutAfter')
     })
     .registerSetting({
       setting: 'tiborsulyan-autologout.warnAfter',

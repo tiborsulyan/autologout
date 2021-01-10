@@ -7,13 +7,11 @@ export default class SessionTimer {
     timeoutTimer;
 
     warn() {
-        console.log("Timeout warning!");
-        app.modal.show(ExpirationWarningModal, {remainingTimeMillis: this.options.timeoutAfter - this.options.warnAfter});
+        app.modal.show(ExpirationWarningModal, {remainingTimeMillis: this.options.logoutAfter - this.options.warnAfter});
     }
 
     timeout() {
         if (app.session.user) {
-            console.log("Logging out");
             app.session.logout();
         }
     }
@@ -33,7 +31,7 @@ export default class SessionTimer {
     start(options) {
         this.options = options;
         this.warnTimer = setTimeout(this.warn.bind(this), this.options.warnAfter);
-        this.timeoutTimer = setTimeout(this.timeout.bind(this), this.options.timeoutAfter);
+        this.timeoutTimer = setTimeout(this.timeout.bind(this), this.options.logoutAfter);
     }
 
     restart(options) {

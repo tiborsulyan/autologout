@@ -5,10 +5,10 @@ import {extend} from 'flarum/extend';
 import SessionTimer from "./SessionTimer";
 
 function createOptions() {
-    const sessionTimeoutInMinutes = app.forum.attribute("tiborsulyan-autologout.timeoutAfter") || 120;
+    const sessionTimeoutInMinutes = app.forum.attribute("tiborsulyan-autologout.logoutAfter") || 120;
     const warnTimeoutInMinutes = app.forum.attribute("tiborsulyan-autologout.warnAfter") || 115;
     return {
-        timeoutAfter: sessionTimeoutInMinutes * 60000 - 10000,
+        logoutAfter: sessionTimeoutInMinutes * 60000 - 10000,
         warnAfter: warnTimeoutInMinutes * 60000 - 10000
     };
 }
