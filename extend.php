@@ -12,10 +12,8 @@
 namespace Tiborsulyan\Autologout;
 
 use Flarum\Foundation\ValidationException;
-use Flarum\Locale\Translator;
 use Flarum\Settings\Event\Saving;
 use Flarum\Extend;
-use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Config\Repository as ConfigRepository;
 
 return [
