@@ -5,7 +5,6 @@ tiborsulyan-autologout:
       warnAfter: Timeout for the warning message to appear (in minutes)
     validation:
       logoutTimeoutNotSet: "Logout timeout should be set"
-      warnTimeoutNotSet: "Warning timeout should be set"
       logoutTimeoutTooBig: "Logout timeout cannot be greater than the session lifetime ({sessionLifetime} minutes)"
       warnTimeoutTooBig: "Warning timeout should be smaller than logout timeout"
 

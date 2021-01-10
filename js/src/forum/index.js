@@ -6,11 +6,17 @@ import SessionTimer from "./SessionTimer";
 
 function createOptions() {
     const sessionTimeoutInMinutes = app.forum.attribute("tiborsulyan-autologout.logoutAfter") || 120;
-    const warnTimeoutInMinutes = app.forum.attribute("tiborsulyan-autologout.warnAfter") || 115;
-    return {
-        logoutAfter: sessionTimeoutInMinutes * 60000 - 10000,
-        warnAfter: warnTimeoutInMinutes * 60000 - 10000
-    };
+    const warnTimeoutInMinutes = app.forum.attribute("tiborsulyan-autologout.warnAfter");
+    if (warnTimeoutInMinutes) {
+        return {
+            logoutAfter: sessionTimeoutInMinutes * 60000 - 10000,
+            warnAfter: warnTimeoutInMinutes * 60000 - 10000
+        };
+    } else {
+        return {
+            logoutAfter: sessionTimeoutInMinutes * 60000
+        };
+    }
 }
 
 app.initializers.add('tiborsulyan/autologout', () => {

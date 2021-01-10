@@ -30,7 +30,9 @@ export default class SessionTimer {
 
     start(options) {
         this.options = options;
-        this.warnTimer = setTimeout(this.warn.bind(this), this.options.warnAfter);
+        if (this.options.warnAfter) {
+            this.warnTimer = setTimeout(this.warn.bind(this), this.options.warnAfter);
+        }
         this.timeoutTimer = setTimeout(this.timeout.bind(this), this.options.logoutAfter);
     }
 

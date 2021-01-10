@@ -42,13 +42,6 @@ return [
             }
             $logoutAfter = $event->settings['tiborsulyan-autologout.logoutAfter'];
 
-            if (!isset($event->settings['tiborsulyan-autologout.warnAfter'])) {
-                throw new ValidationException([
-                    'autologout' => app('translator')->trans('tiborsulyan-autologout.admin.validation.warnTimeoutNotSet')
-                ]);
-            }
-            $warnAfter = isset($event->settings['tiborsulyan-autologout.warnAfter']);
-
             $sessionLifetime = app(ConfigRepository::class)->get("session.lifetime");
             if ($logoutAfter > $sessionLifetime) {
                 throw new ValidationException([
@@ -56,7 +49,7 @@ return [
                 ]);
             }
 
-            if ($logoutAfter <= $warnAfter) {
+            if (isset($event->settings['tiborsulyan-autologout.warnAfter']) && $logoutAfter <= $event->settings['tiborsulyan-autologout.warnAfter']) {
                 throw new ValidationException([
                     'autologout' => app('translator')->trans('tiborsulyan-autologout.admin.validation.warnTimeoutTooBig')
                 ]);
