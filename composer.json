@@ -1,0 +1,37 @@
+{
+  "name": "tiborsulyan/autologout",
+  "description": "Automatically warns and logs out user when session expires",
+  "keywords": [
+    "flarum"
+  ],
+  "type": "flarum-extension",
+  "license": "MIT",
+  "require": {
+    "flarum/core": "^0.1.0-beta.15"
+  },
+  "authors": [
+    {
+      "name": "stibi",
+      "email": "sulyan.tibor@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Tiborsulyan\\Autologout\\": "src/"
+    }
+  },
+  "extra": {
+    "flarum-extension": {
+      "title": "Autologout",
+      "icon": {
+        "name": "",
+        "backgroundColor": "",
+        "color": ""
+      }
+    },
+    "flagrow": {
+      "discuss": ""
+    }
+  }
+}
