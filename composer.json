@@ -20,7 +20,7 @@
   ],
   "support": {
     "issues": "https://github.com/tiborsulyan/autologout/issues",
-    "source": "https://github.com/tiborsulyan/autologout",
+    "source": "https://github.com/tiborsulyan/autologout"
   },
   "autoload": {
     "psr-4": {
