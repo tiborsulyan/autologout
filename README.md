@@ -24,6 +24,10 @@ php flarum cache:clear
 Enable the extension and set the logout timeout in the settings.
 Optionally, a warning timeout can also be set to warn the user before session expiration and allow extension of the session
 
+### TODO
+
+- Handle multiple browser tabs
+
 ### Links
 
 - [Packagist](https://packagist.org/packages/tiborsulyan/autologout)
