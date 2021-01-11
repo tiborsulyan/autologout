@@ -26,7 +26,7 @@ Optionally, a warning timeout can also be set to warn the user before session ex
 
 ### TODO
 
-- Handle multiple browser tabs
+- Handle timeout in the admin area
 
 ### Links
 

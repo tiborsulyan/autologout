@@ -6,12 +6,23 @@ export default class ExpirationWarningModal extends Modal {
     remainingSeconds;
     remainingTimeString;
     updateInterval;
+    restartListener;
 
     oninit(vnode) {
         super.oninit(vnode);
         this.remainingSeconds = this.attrs.remainingTimeMillis / 1000;
         this.recalculateRemainingTime();
         this.updateInterval = setInterval(this.updateRemainingTime.bind(this), 1000);
+    }
+
+    onready() {
+        this.restartListener = this.restartDetected.bind(this);
+        window.addEventListener('autologoutRestarted', this.restartListener);
+    }
+
+    restartDetected() {
+        this.removeTimeUpdater();
+        this.hide();
     }
 
     recalculateRemainingTime() {
@@ -50,8 +61,7 @@ export default class ExpirationWarningModal extends Modal {
             <div className="Modal-body">
                 <div className="Form Form--centered">
                     <div className="Modal-header">
-                        <h3>{app.translator.trans('tiborsulyan-autologout.forum.warning-modal.message')}</h3>
-                        <p>{app.translator.trans('tiborsulyan-autologout.forum.warning-modal.remaining')} {this.remainingTimeString}</p>
+                        <h3>{app.translator.trans('tiborsulyan-autologout.forum.warning-modal.remaining')} {this.remainingTimeString}</h3>
                     </div>
                     <div className="Form-group">
                         {Button.component({
@@ -73,7 +83,7 @@ export default class ExpirationWarningModal extends Modal {
     }
 
     onremove() {
-        console.log("Removing modal update interval");
+        window.removeEventListener('autologoutRestarted', this.restartListener);
         this.removeTimeUpdater();
     }
 
