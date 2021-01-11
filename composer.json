@@ -2,7 +2,9 @@
   "name": "tiborsulyan/autologout",
   "description": "Automatically warns and logs out user when session expires",
   "keywords": [
-    "flarum"
+    "flarum",
+    "session",
+    "logout"
   ],
   "type": "flarum-extension",
   "license": "MIT",
@@ -28,6 +30,7 @@
   "extra": {
     "flarum-extension": {
       "title": "Autologout",
+      "category": "feature",
       "icon": {
         "name": "",
         "backgroundColor": "",

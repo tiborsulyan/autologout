@@ -16,8 +16,16 @@ composer require tiborsulyan/autologout
 
 ```sh
 composer update tiborsulyan/autologout
+php flarum cache:clear
 ```
+
+### Usage
+
+Enable the extension and set the logout timeout in the settings.
+Optionally, a warning timeout can also be set to warn the user before session expiration and allow extension of the session
 
 ### Links
 
 - [Packagist](https://packagist.org/packages/tiborsulyan/autologout)
+- [Source code on GitHub](https://github.com/tiborsulyan/autologout)
+- [Report an issue](https://github.com/tiborsulyan/autologout/issues)
