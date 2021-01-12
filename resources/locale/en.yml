@@ -1,8 +1,8 @@
 tiborsulyan-autologout:
   admin:
     settings:
-      logoutAfter: Timeout to log out inactive users (in minutes)
-      warnAfter: Timeout for the warning message to appear (in minutes)
+      logoutAfter: Inactivity period to log out users (in minutes)
+      warnAfter: Inactivity period for the warning message to appear (in minutes)
     validation:
       logoutTimeoutNotSet: Logout timeout should be set
       logoutTimeoutTooBig: Logout timeout cannot be greater than the session lifetime (sessionLifetime minutes)

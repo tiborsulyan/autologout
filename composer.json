@@ -1,6 +1,6 @@
 {
   "name": "tiborsulyan/autologout",
-  "description": "Automatically warns and logs out user when session expires",
+  "description": "Automatically warns and logs out user after a configured timeout",
   "keywords": [
     "flarum",
     "session",
@@ -9,7 +9,7 @@
   "type": "flarum-extension",
   "license": "MIT",
   "require": {
-    "flarum/core": "^0.1.0-beta.15"
+    "flarum/core": "^0.1.0-beta.14"
   },
   "authors": [
     {
