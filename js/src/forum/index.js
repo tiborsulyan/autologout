@@ -10,8 +10,8 @@ const createOptions = () => {
     const warnTimeoutInMinutes = app.forum.attribute("tiborsulyan-autologout.warnAfter");
     if (warnTimeoutInMinutes) {
         return {
-            logoutAfter: sessionTimeoutInMinutes * 60000 - 5000,
-            warnAfter: warnTimeoutInMinutes * 60000 - 5000
+            logoutAfter: /*sessionTimeoutInMinutes * 60000 - 5000*/60000,
+            warnAfter: /*warnTimeoutInMinutes * 60000 - 5000*/30000
         };
     } else {
         return {
