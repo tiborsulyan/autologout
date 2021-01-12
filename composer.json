@@ -29,7 +29,7 @@
   },
   "extra": {
     "flarum-extension": {
-      "title": "Autologout",
+      "title": "Auto Logout",
       "category": "feature",
       "icon": {
         "name": "",
