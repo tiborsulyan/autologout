@@ -28,7 +28,6 @@ export default class SessionTimer {
     logout() {
         if (app.session.user) {
             this.stop();
-            localStorage.clear();
             app.session.logout();
         }
     }
@@ -52,6 +51,7 @@ export default class SessionTimer {
 
     stop() {
         this.stopTimers();
+        localStorage.clear();
         this.removeStorageListener();
     }
 
