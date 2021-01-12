@@ -35,24 +35,35 @@ return [
     (new Extend\Event())
         ->listen(Saving::class, function (Saving $event) {
 
-            if (!isset($event->settings['tiborsulyan-autologout.logoutAfter'])) {
+            $lt = null;
+            if (isset($event->settings['tiborsulyan-autologout.logoutAfter'])) {
+                $lt = $event->settings['tiborsulyan-autologout.logoutAfter'];
+            }
+            $wt = null;
+            if (isset($event->settings['tiborsulyan-autologout.warnAfter'])) {
+                $wt = $event->settings['tiborsulyan-autologout.warnAfter'];
+            }
+
+            if (!$lt && $wt) {
                 throw new ValidationException([
                     'autologout' => app('translator')->trans('tiborsulyan-autologout.admin.validation.logoutTimeoutNotSet')
                 ]);
             }
-            $logoutAfter = $event->settings['tiborsulyan-autologout.logoutAfter'];
 
-            $sessionLifetime = app(ConfigRepository::class)->get("session.lifetime");
-            if ($logoutAfter > $sessionLifetime) {
-                throw new ValidationException([
-                    'autologout' => app('translator')->trans('tiborsulyan-autologout.admin.validation.logoutTimeoutTooBig', ['sessionLifetime' => $sessionLifetime])
-                ]);
-            }
-
-            if (isset($event->settings['tiborsulyan-autologout.warnAfter']) && $logoutAfter <= $event->settings['tiborsulyan-autologout.warnAfter']) {
+            if ($lt && $wt && $wt >= $lt) {
                 throw new ValidationException([
                     'autologout' => app('translator')->trans('tiborsulyan-autologout.admin.validation.warnTimeoutTooBig')
                 ]);
             }
+
+            if ($lt) {
+                $sessionLifetime = app(ConfigRepository::class)->get("session.lifetime");
+                if ($lt > $sessionLifetime) {
+                    throw new ValidationException([
+                        'autologout' => app('translator')->trans('tiborsulyan-autologout.admin.validation.logoutTimeoutTooBig', ['sessionLifetime' => $sessionLifetime])
+                    ]);
+                }
+            }
+
         }),
 ];

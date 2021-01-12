@@ -5,8 +5,12 @@ import {extend} from 'flarum/extend';
 import SessionTimer from "./SessionTimer";
 import SessionDropdown from "flarum/components/SessionDropdown";
 
+const autologoutEnabled = () => {
+    return app.forum.attribute("tiborsulyan-autologout.logoutAfter");
+};
+
 const createOptions = () => {
-    const sessionTimeoutInMinutes = app.forum.attribute("tiborsulyan-autologout.logoutAfter") || 120;
+    const sessionTimeoutInMinutes = app.forum.attribute("tiborsulyan-autologout.logoutAfter");
     const warnTimeoutInMinutes = app.forum.attribute("tiborsulyan-autologout.warnAfter");
     if (warnTimeoutInMinutes) {
         return {
@@ -20,24 +24,33 @@ const createOptions = () => {
     }
 };
 
+const log = function(...args) {
+    // console.debug(args);
+};
+
 app.initializers.add('tiborsulyan/autologout', () => {
 
     User.prototype.autoLogoutTimer = null;
 
     extend(Page.prototype, 'oninit', function () {
         if (app.session.user) {
-            if (!app.session.user.autoLogoutTimer) {
-                app.session.user.autoLogoutTimer = new SessionTimer(createOptions());
+            if (autologoutEnabled()) {
+                if (!app.session.user.autoLogoutTimer) {
+                    log("Auto Logout: initializing");
+                    app.session.user.autoLogoutTimer = new SessionTimer(createOptions());
+                }
+                log("Auto Logout: updating expiration time (Page.oninit)");
+                app.session.user.autoLogoutTimer.updateExpirationTime();
+            } else {
+                log("Auto Logout: not enabled", app.session.user);
             }
-
-            app.session.user.autoLogoutTimer.updateExpirationTime();
-
         }
     });
 
     extend(XMLHttpRequest.prototype, 'open', function () {
         this.addEventListener('load', function () {
             if (app.session.user && app.session.user.autoLogoutTimer) {
+                log("Auto Logout: updating expiration time (XHR)");
                 app.session.user.autoLogoutTimer.updateExpirationTime();
             }
         });
