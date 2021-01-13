@@ -1,6 +1,6 @@
 {
   "name": "tiborsulyan/autologout",
-  "description": "Automatically warns and logs out user after a configured timeout",
+  "description": "Automatically warns and logs out users after a configured timeout",
   "keywords": [
     "flarum",
     "session",
@@ -9,11 +9,11 @@
   "type": "flarum-extension",
   "license": "MIT",
   "require": {
-    "flarum/core": "^0.1.0-beta.14"
+    "flarum/core": ">=0.1.0-beta.15 <0.1.0-beta.16"
   },
   "authors": [
     {
-      "name": "stibi",
+      "name": "Tibor Sulyán",
       "email": "sulyan.tibor@gmail.com",
       "role": "Developer"
     }
@@ -32,7 +32,7 @@
       "title": "Auto Logout",
       "category": "feature",
       "icon": {
-        "name": "",
+        "name": "fas fa-sign-out-alt",
         "backgroundColor": "",
         "color": ""
       }

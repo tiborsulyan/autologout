@@ -31,7 +31,6 @@ Enable the extension and set the timeouts in the admin area
 
 - Handle timeout in the admin area
 - Better integration with Flarum's native logout feature
-- Test compatibility with beta 14
 - Fix validation of settings
 
 ### Links
