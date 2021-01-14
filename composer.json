@@ -25,7 +25,10 @@
   "autoload": {
     "psr-4": {
       "Tiborsulyan\\Autologout\\": "src/"
-    }
+    },
+    "files": [
+      "Overrides/Http/Rememberer.php"
+    ]
   },
   "extra": {
     "flarum-extension": {

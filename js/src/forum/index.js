@@ -6,7 +6,7 @@ import SessionTimer from "./SessionTimer";
 import SessionDropdown from "flarum/components/SessionDropdown";
 
 const autologoutEnabled = () => {
-    return app.forum.attribute("tiborsulyan-autologout.logoutAfter");
+    return app.forum.attribute("tiborsulyan-autologout.logoutAfter") && !document.cookie.includes("flarum_has_remember=1");
 };
 
 const createOptions = () => {
