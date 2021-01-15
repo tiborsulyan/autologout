@@ -27,7 +27,7 @@
       "Tiborsulyan\\Autologout\\": "src/"
     },
     "files": [
-      "Overrides/Http/Rememberer.php"
+      "src/Overrides/Http/Rememberer.php"
     ]
   },
   "extra": {
