@@ -51,7 +51,7 @@ export default class SessionTimer {
 
     stop() {
         this.stopTimers();
-        localStorage.clear();
+        localStorage.removeItem("tiborsulyan.autologout");
         this.removeStorageListener();
     }
 
@@ -63,14 +63,17 @@ export default class SessionTimer {
     }
 
     expirationTimeUpdated(e) {
+        // console.debug("Something happened...", e);
         if (app.session.user) {
             if (e.key === "tiborsulyan.autologout") {
                 if (e.newValue) {
                     // Update detected from another tab, restarting timer
                     this.lastUpdate = Date.now();
+                    // console.debug("Restarting");
                     this.restart();
                 } else {
                     // Logout happened on another tab
+                    // console.debug("Logout from another tab");
                     this.logout();
                 }
             }

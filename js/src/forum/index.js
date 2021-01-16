@@ -24,8 +24,12 @@ const createOptions = () => {
     }
 };
 
-const log = function(...args) {
-    // console.debug(args);
+const log = function(msg, ...args) {
+    if (arguments.length === 1) {
+        console.debug(msg);
+    } else {
+        console.debug(msg, args);
+    }
 };
 
 app.initializers.add('tiborsulyan/autologout', () => {
@@ -43,6 +47,7 @@ app.initializers.add('tiborsulyan/autologout', () => {
                 app.session.user.autoLogoutTimer.updateExpirationTime();
             } else {
                 log("Auto Logout: not enabled", app.session.user);
+                log("Has remember me feature?", document.cookie.includes("flarum_has_remember=1"));
             }
         }
     });
@@ -62,6 +67,7 @@ app.initializers.add('tiborsulyan/autologout', () => {
         const originalOnclick = originalLogout.attrs.onclick;
         originalLogout.attrs.onclick = () => {
             if (app.session.user && app.session.user.autoLogoutTimer) {
+                log("Logout detected, stopping timer");
                 app.session.user.autoLogoutTimer.stop();
             }
             originalOnclick();
