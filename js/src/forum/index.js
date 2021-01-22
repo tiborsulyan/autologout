@@ -25,11 +25,11 @@ const createOptions = () => {
 };
 
 const log = function(msg, ...args) {
-    if (arguments.length === 1) {
-        console.debug(msg);
-    } else {
-        console.debug(msg, args);
-    }
+    // if (arguments.length === 1) {
+    //     console.debug(msg);
+    // } else {
+    //     console.debug(msg, args);
+    // }
 };
 
 app.initializers.add('tiborsulyan/autologout', () => {
